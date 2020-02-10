@@ -76,15 +76,16 @@ let primsMaze = (maze, startX, startY) => {
   while(true) {
     cnt++;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
     if(cnt === 1000) break;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
-    break;
 
-    for(let i = -1; i < 2; i += 2) {
-      for(let j = -1; j < 2; j += 2) {
-        if(maze[currX + i][currY + j] !== 'undefined') {
-          adjList.push({
-            x: currX + i,
-            y: currY + j,
-          });
+    for(let i = -1; i < 2; i++) {
+      if(currX+i >= 0 & currX+i < maze.length) {
+        for(let j = -1; j < 2; j++) {
+          if(currY+j >= 0 & currY+j < maze[currX+i].length & Math.abs(i + j) === 1){
+            adjList.push({
+              x: currX + i,
+              y: currY + j,
+            });
+          }
         }
       }
     }
@@ -93,6 +94,7 @@ let primsMaze = (maze, startX, startY) => {
 
   }
 
+  console.log(adjList)
   return maze;
 }
 
