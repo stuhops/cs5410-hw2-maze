@@ -115,8 +115,8 @@ let canvas = null;
 let context = null;
 
 const COORD_SIZE = 1024;
-const ROW = 20;
-const COL = 20;
+const ROW = 9;
+const COL = 9;
 
 let imgFloor = new Image();
 let imgBreadcrumb = new Image();
@@ -132,7 +132,7 @@ imgFloor.src = 'static/images/floor.png';
 imgBreadcrumb.src = 'static/images/breadcrumb.png';
 
 let maze = createMaze(ROW, COL);
-let showBreadcrumbs = true;
+let showBreadcrumbs = false;
 let breadcrumbList = [];
 
 // <<<<<<<<<<<<<<< End Initialization >>>>>>>>>>>>>>>>>>>
@@ -275,7 +275,12 @@ function render() {
 
 function processInput() {
     for (input in inputBuffer) {
+
         moveCharacter(inputBuffer[input], myCharacter);
+
+        if (inputBuffer[input] === 'b') {
+          showBreadcrumbs = !showBreadcrumbs;
+        }
     }
     inputBuffer = {};
 }
