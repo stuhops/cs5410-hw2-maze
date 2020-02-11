@@ -17,6 +17,7 @@ createBlankMaze = (row, col) => {
         x: i,
         y: j,
         used: 0,
+        breadcrumb: false,
         adj: [],
       });
     }
@@ -118,46 +119,79 @@ const ROW = 20;
 const COL = 20;
 
 let imgFloor = new Image();
+let imgBreadcrumb = new Image();
 imgFloor.isReady = false;
+imgBreadcrumb.isReady = false;
 imgFloor.onload = function() {
     this.isReady = true;
 };
+imgBreadcrumb.onload = function() {
+    this.isReady = true;
+};
 imgFloor.src = 'static/images/floor.png';
+imgBreadcrumb.src = 'static/images/breadcrumb.png';
 
 let maze = createMaze(ROW, COL);
+let showBreadcrumbs = true;
+let breadcrumbList = [];
 
 // <<<<<<<<<<<<<<< End Initialization >>>>>>>>>>>>>>>>>>>
 
 // <<<<<<<<<<<<< Begin Image Rendering >>>>>>>>>>>>>>>>>>
 
+function loadImagePos(imageSource, location) {
+    let image = new Image();
+    image.isReady = false;
+    image.onload = function() {
+        this.isReady = true;
+    };
+    image.src = imageSource;
+    return {
+        location: location,
+        image: image
+    };
+}
+
+let myCharacter = loadImagePos('./static/images/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+let finishImg = loadImagePos('./static/images/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+
 
 function drawCell(cell) {
 
-    if (imgFloor.isReady) {
-        context.drawImage(imgFloor,
-        cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL),
-        COORD_SIZE / ROW + 0.5, COORD_SIZE / COL + 0.5);
-    }
+  if (imgFloor.isReady) {
+    context.drawImage(imgFloor,
+    cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL),
+    COORD_SIZE / ROW + 0.5, COORD_SIZE / COL + 0.5);
+  }
 
-    if (cell.edges.n === null) {
-        context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
-        context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
-    }
+  if (cell.edges.n === null) {
+    context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+    context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+  }
 
-    if (cell.edges.s === null) {
-        context.moveTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-        context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-    }
+  if (cell.edges.s === null) {
+    context.moveTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
+    context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
+  }
 
-    if (cell.edges.e === null) {
-        context.moveTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
-        context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-    }
+  if (cell.edges.e === null) {
+    context.moveTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+    context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
+  }
 
-    if (cell.edges.w === null) {
-        context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
-        context.lineTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-    }
+  if (cell.edges.w === null) {
+    context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+    context.lineTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
+  }
+
+  if(showBreadcrumbs && cell.breadcrumb && imgBreadcrumb.isReady) {
+    context.drawImage(imgBreadcrumb,
+                      cell.x * (COORD_SIZE / ROW) + .25 * (COORD_SIZE / ROW),
+                      cell.y * (COORD_SIZE / COL) + .25 * (COORD_SIZE / COL),
+                      COORD_SIZE / (ROW*2) + 0.5,
+                      COORD_SIZE / (COL*2) + 0.5
+                     );
+  }
 }
 
 
@@ -175,21 +209,25 @@ function renderCharacter(character) {
 function moveCharacter(key, character) {
     if (key === 'ArrowDown') {
         if (character.location.edges.s) {
+            character.location.breadcrumb = true;
             character.location = character.location.edges.s;
         }
     }
     if (key == 'ArrowUp') {
         if (character.location.edges.n) {
+            character.location.breadcrumb = true;
             character.location = character.location.edges.n;
         }
     }
     if (key == 'ArrowRight') {
         if (character.location.edges.e) {
+            character.location.breadcrumb = true;
             character.location = character.location.edges.e;
         }
     }
     if (key == 'ArrowLeft') {
         if (character.location.edges.w) {
+            character.location.breadcrumb = true;
             character.location = character.location.edges.w;
         }
     }
@@ -202,7 +240,7 @@ function renderMaze() {
 
   for (let i = 0; i < ROW; i++) {
     for (let j = 0; j < COL; j++) {
-      drawCell(maze[i][j]);
+      drawCell(maze[i][j], showBreadcrumbs);
     }
   }
   context.stroke();
@@ -218,22 +256,6 @@ function renderMaze() {
 }
 
 
-//
-// Immediately invoked anonymous function
-//
-let myCharacter = function(imageSource, location) {
-    let image = new Image();
-    image.isReady = false;
-    image.onload = function() {
-        this.isReady = true;
-    };
-    image.src = imageSource;
-    return {
-        location: location,
-        image: image
-    };
-}('./static/images/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
-
 // <<<<<<<<<<<<<<< End Image Rendering >>>>>>>>>>>>>>>>>>
 
 // <<<<<<<<<<<<<<<< Begin Game Loop >>>>>>>>>>>>>>>>>>>>>
@@ -242,7 +264,12 @@ function render() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     renderMaze(ROW, COL);
+    renderCharacter(finishImg);
     renderCharacter(myCharacter);
+
+    while(breadcrumbList.length) {
+      renderCharacter(breadcrumbList.pop());
+    }
 }
 
 
