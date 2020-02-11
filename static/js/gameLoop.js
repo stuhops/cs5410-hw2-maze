@@ -35,6 +35,7 @@ let primsMaze = (maze, startX, startY) => {
   if(startY)
     currY = startY;
   
+  // Add cells to the adjacency lists
   while(true) {
 
     for(let i = -1; i < 2; i++) {
@@ -56,14 +57,21 @@ let primsMaze = (maze, startX, startY) => {
       }
     }
 
-    maze[currX][currY].used = 2;
 
     if(adjList.length === 0)
       break;
 
     let adj = adjList.splice(Math.random() * adjList.length, 1);
+
+    // Clean up the previous cell
+    maze[currX][currY].used = 2;
+    delete(maze[currX][currY].adj);
+
+    // Move to the new current
     currX = adj[0].x;
     currY = adj[0].y;
+
+    // Create walls
     if(maze[currX][currY].adj.length) {
       let tmpAdj = maze[currX][currY].adj.splice(Math.random() * maze[currX][currY].adj.length, 1)[0][0];
 
@@ -83,28 +91,9 @@ let primsMaze = (maze, startX, startY) => {
         maze[currX][currY].edges.n = maze[tmpAdj.x][tmpAdj.y];
         maze[tmpAdj.x][tmpAdj.y].edges.s = maze[currX][currY];
       }
-      else
-        console.log(`ERROR: No walls were defined at x: ${currX}, y: ${currY}`)
     }
-
-    // // Make a wall on every other thing in the list
-    // while(maze[currX][currY].adj.length > 0) {
-    //   let tmpAdj = maze[currX][currY].adj.pop()[0];
-    //   if(currX < tmpAdj.x)
-    //     maze[currX][currY].edges.e = maze[tmpAdj.x][tmpAdj.y];
-    //   else if(currX > tmpAdj.x)
-    //     maze[currX][currY].edges.w = maze[tmpAdj.x][tmpAdj.y];
-    //   else if(currY < tmpAdj.y)
-    //     maze[currX][currY].edges.n = maze[tmpAdj.x][tmpAdj.y];
-    //   else if(currY > tmpAdj.y)
-    //     maze[currX][currY].edges.s = maze[tmpAdj.x][tmpAdj.y];
-    //   else
-    //     console.log(`ERROR: No walls were defined at x: ${currX}, y: ${currY}`)
-    // }
-    // delete maze[currX][currY].adj;
   }
 
-  console.log(maze);
   return maze;
 }
 
@@ -125,8 +114,8 @@ let canvas = null;
 let context = null;
 
 const COORD_SIZE = 1024;
-const ROW = 9;
-const COL = 9;
+const ROW = 20;
+const COL = 20;
 
 let imgFloor = new Image();
 imgFloor.isReady = false;
@@ -178,10 +167,13 @@ function drawCell(cell) {
 
 
 function renderCharacter(character) {
-    if (character.image.isReady) {
-        context.drawImage(character.image,
-        character.location.x * (COORD_SIZE / ROW), character.location.y * (COORD_SIZE / COL));
-    }
+  if (character.image.isReady) {
+    context.drawImage(character.image,
+                      character.location.x * (COORD_SIZE / ROW),
+                      character.location.y * (COORD_SIZE / COL),
+                      COORD_SIZE / ROW + 0.5, COORD_SIZE / ROW + 0.5
+    );
+  }
 }
 
 
