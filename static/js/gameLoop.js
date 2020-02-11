@@ -102,12 +102,12 @@ let createMaze = (row, col) => {
   let maze = createBlankMaze(row, col);
 
   maze = primsMaze(maze);
-
   return maze;
 }
 
 // <<<<<<<<<<<<<<< End Maze Creation >>>>>>>>>>>>>>>>>>>>
 
+// <<<<<<<<<<<<< Begin Initialization >>>>>>>>>>>>>>>>>>>
 
 let inputBuffer = {};
 let canvas = null;
@@ -126,7 +126,10 @@ imgFloor.src = 'static/images/floor.png';
 
 let maze = createMaze(ROW, COL);
 
-// <<<<<<<<<<<<< Begin Initialization >>>>>>>>>>>>>>>>>>>
+// <<<<<<<<<<<<<<< End Initialization >>>>>>>>>>>>>>>>>>>
+
+// <<<<<<<<<<<<< Begin Image Rendering >>>>>>>>>>>>>>>>>>
+
 
 function drawCell(cell) {
 
@@ -139,30 +142,22 @@ function drawCell(cell) {
     if (cell.edges.n === null) {
         context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
         context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
-        // context.stroke();
     }
 
     if (cell.edges.s === null) {
         context.moveTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
         context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-        // context.stroke();
     }
 
     if (cell.edges.e === null) {
         context.moveTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
         context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-        //context.stroke();
     }
 
     if (cell.edges.w === null) {
         context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
         context.lineTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
-        //context.stroke();
     }
-
-    //
-    // Can do all the moveTo and lineTo commands and then render them all with a single .stroke() call.
-    context.stroke();
 }
 
 
@@ -210,6 +205,7 @@ function renderMaze() {
       drawCell(maze[i][j]);
     }
   }
+  context.stroke();
 
   context.beginPath();
   context.moveTo(0, 0);
@@ -236,8 +232,11 @@ let myCharacter = function(imageSource, location) {
         location: location,
         image: image
     };
-}('./static/images/character.png', maze[1][1]);
+}('./static/images/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
 
+// <<<<<<<<<<<<<<< End Image Rendering >>>>>>>>>>>>>>>>>>
+
+// <<<<<<<<<<<<<<<< Begin Game Loop >>>>>>>>>>>>>>>>>>>>>
 
 function render() {
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -263,6 +262,7 @@ function gameLoop() {
 
 }
 
+// <<<<<<<<<<<<<<<<< End Game Loop >>>>>>>>>>>>>>>>>>>>>>
 
 function initialize() {
     canvas = document.getElementById('canvas-main');
