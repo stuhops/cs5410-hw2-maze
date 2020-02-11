@@ -29,7 +29,6 @@ let primsMaze = (maze, startX, startY) => {
   let currX = 0;
   let currY = 0;
   let adjList = [];
-  let finishedList = [];
 
   if(startX)
     currX = startX;
@@ -126,6 +125,8 @@ let canvas = null;
 let context = null;
 
 const COORD_SIZE = 1024;
+const ROW = 9;
+const COL = 9;
 
 let imgFloor = new Image();
 imgFloor.isReady = false;
@@ -134,46 +135,7 @@ imgFloor.onload = function() {
 };
 imgFloor.src = 'static/images/floor.png';
 
-let maze = createMaze(3, 3);
-// let maze = [];
-// for (let row = 0; row < 3; row++) {
-//     maze.push([]);
-//     for (let col = 0; col < 3; col++) {
-//         maze[row].push({
-//             x: col, y: row, edges: {
-//                 n: null,
-//                 s: null,
-//                 w: null,
-//                 e: null
-//             }
-//         });
-//     }
-// }
-
-// maze[0][0].edges.s = maze[1][0];
-
-// maze[0][1].edges.s = maze[1][1];
-// maze[0][1].edges.e = maze[0][2];
-
-// maze[0][2].edges.w = maze[0][1];
-// maze[0][2].edges.s = maze[1][2];
-
-// maze[1][0].edges.n = maze[0][0];
-// maze[1][0].edges.e = maze[1][1];
-// maze[1][0].edges.s = maze[2][0];
-
-// maze[1][1].edges.n = maze[0][1];
-// maze[1][1].edges.s = maze[2][1];
-// maze[1][1].edges.w = maze[1][0];
-
-// maze[1][2].edges.n = maze[0][2];
-
-// maze[2][0].edges.n = maze[1][0];
-
-// maze[2][1].edges.n = maze[1][1];
-// maze[2][1].edges.e = maze[2][2];
-
-// maze[2][2].edges.w = maze[2][1];
+let maze = createMaze(ROW, COL);
 
 // <<<<<<<<<<<<< Begin Initialization >>>>>>>>>>>>>>>>>>>
 
@@ -181,31 +143,31 @@ function drawCell(cell) {
 
     if (imgFloor.isReady) {
         context.drawImage(imgFloor,
-        cell.x * (COORD_SIZE / 3), cell.y * (COORD_SIZE / 3),
-        COORD_SIZE / 3 + 0.5, COORD_SIZE / 3 + 0.5);
+        cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL),
+        COORD_SIZE / ROW + 0.5, COORD_SIZE / COL + 0.5);
     }
 
     if (cell.edges.n === null) {
-        context.moveTo(cell.x * (COORD_SIZE / 3), cell.y * (COORD_SIZE / 3));
-        context.lineTo((cell.x + 1) * (COORD_SIZE / 3), cell.y * (COORD_SIZE / 3));
+        context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+        context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
         // context.stroke();
     }
 
     if (cell.edges.s === null) {
-        context.moveTo(cell.x * (COORD_SIZE / 3), (cell.y + 1) * (COORD_SIZE / 3));
-        context.lineTo((cell.x + 1) * (COORD_SIZE / 3), (cell.y + 1) * (COORD_SIZE / 3));
+        context.moveTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
+        context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
         // context.stroke();
     }
 
     if (cell.edges.e === null) {
-        context.moveTo((cell.x + 1) * (COORD_SIZE / 3), cell.y * (COORD_SIZE / 3));
-        context.lineTo((cell.x + 1) * (COORD_SIZE / 3), (cell.y + 1) * (COORD_SIZE / 3));
+        context.moveTo((cell.x + 1) * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+        context.lineTo((cell.x + 1) * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
         //context.stroke();
     }
 
     if (cell.edges.w === null) {
-        context.moveTo(cell.x * (COORD_SIZE / 3), cell.y * (COORD_SIZE / 3));
-        context.lineTo(cell.x * (COORD_SIZE / 3), (cell.y + 1) * (COORD_SIZE / 3));
+        context.moveTo(cell.x * (COORD_SIZE / ROW), cell.y * (COORD_SIZE / COL));
+        context.lineTo(cell.x * (COORD_SIZE / ROW), (cell.y + 1) * (COORD_SIZE / COL));
         //context.stroke();
     }
 
@@ -218,7 +180,7 @@ function drawCell(cell) {
 function renderCharacter(character) {
     if (character.image.isReady) {
         context.drawImage(character.image,
-        character.location.x * (COORD_SIZE / 3), character.location.y * (COORD_SIZE / 3));
+        character.location.x * (COORD_SIZE / ROW), character.location.y * (COORD_SIZE / COL));
     }
 }
 
@@ -248,23 +210,23 @@ function moveCharacter(key, character) {
 
 
 function renderMaze() {
-    context.strokeStyle = 'rgb(255, 255, 255)';
-    context.lineWidth = 6;
+  context.strokeStyle = 'rgb(255, 255, 255)';
+  context.lineWidth = 6;
 
-    for (let row = 0; row < 3; row++) {
-        for (let col = 0; col < 3; col++) {
-            drawCell(maze[row][col]);
-        }
+  for (let i = 0; i < ROW; i++) {
+    for (let j = 0; j < COL; j++) {
+      drawCell(maze[i][j]);
     }
+  }
 
-    context.beginPath();
-    context.moveTo(0, 0);
-    context.lineTo(COORD_SIZE - 1, 0);
-    context.lineTo(COORD_SIZE - 1, COORD_SIZE - 1);
-    context.lineTo(0, COORD_SIZE - 1);
-    context.closePath();
-    context.strokeStyle = 'rgb(0, 0, 0)';
-    context.stroke();
+  context.beginPath();
+  context.moveTo(0, 0);
+  context.lineTo(COORD_SIZE - 1, 0);
+  context.lineTo(COORD_SIZE - 1, COORD_SIZE - 1);
+  context.lineTo(0, COORD_SIZE - 1);
+  context.closePath();
+  context.strokeStyle = 'rgb(0, 0, 0)';
+  context.stroke();
 }
 
 
@@ -288,7 +250,7 @@ let myCharacter = function(imageSource, location) {
 function render() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    renderMaze();
+    renderMaze(ROW, COL);
     renderCharacter(myCharacter);
 }
 
