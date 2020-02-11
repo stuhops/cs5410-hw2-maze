@@ -42,6 +42,10 @@ createBlankMaze = (row, col) => {
           w: null,
           e: null,
         },
+        x: i,
+        y: j,
+        used: 0,
+        adj: [],
       });
       
       if(i === 0)
@@ -74,27 +78,59 @@ let primsMaze = (maze, startX, startY) => {
   
   let cnt = 0;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
   while(true) {
-    cnt++;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
-    if(cnt === 1000) break;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
+    // cnt++;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
+    // if(cnt === 5) break;  // TEMPORARY DELETE WHEN DEBUGGING IS DONE
 
     for(let i = -1; i < 2; i++) {
-      if(currX+i >= 0 & currX+i < maze.length) {
+      if(currX+i >= 0 && currX+i < maze.length) {
         for(let j = -1; j < 2; j++) {
-          if(currY+j >= 0 & currY+j < maze[currX+i].length & Math.abs(i + j) === 1){
-            adjList.push({
-              x: currX + i,
-              y: currY + j,
-            });
+          if(currY+j >= 0 && currY+j < maze[currX+i].length && Math.abs(i + j) === 1){
+            if(maze[currX+i][currY+j].used < 2) {
+              if(!maze[currX+i][currY+j].used) {
+                adjList.push({
+                  x: currX + i,
+                  y: currY + j,
+                });
+                maze[currX + i][currY + j].used = 1;
+              }
+              maze[currX + i][currY + j].adj.push([{x: currX, y: currY}]);
+            }
           }
         }
       }
     }
-    break;
 
+    maze[currX][currY].used = 2;
 
+    if(adjList.length === 0)
+      break;
+
+    let adj = adjList.splice(Math.random() * adjList.length, 1);
+    currX = adj[0].x;
+    currY = adj[0].y;
+    console.log(maze[currX][currY]);
+    if(maze[currX][currY].adj.length) 
+      maze[currX][currY].adj.splice(Math.random() * maze[currX][currY].adj.length, 1);
+
+    // Make a wall on every other thing in the list
+    while(maze[currX][currY].adj.length > 0) {
+      let tmpAdj = maze[currX][currY].adj.pop()[0];
+      if(currX < tmpAdj.x)
+        maze[currX][currY].edges.e = 1;
+      else if(currX > tmpAdj.x)
+        maze[currX][currY].edges.w = 1;
+      else if(currY < tmpAdj.y)
+        maze[currX][currY].edges.n = 1;
+      else if(currY > tmpAdj.y)
+        maze[currX][currY].edges.s = 1;
+      else
+        console.log(`ERROR: No walls were defined at x: ${currX}, y: ${currY}`)
+    }
+    // delete maze[currX][currY].adj;
   }
 
-  console.log(adjList)
+  console.log(adjList);
+  console.log(maze);
   return maze;
 }
 
