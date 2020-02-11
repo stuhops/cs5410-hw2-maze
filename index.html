@@ -8,7 +8,25 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body class="bg-dark" onload = "initialize()">
+<body class="bg-dark" onload="initialize()">
     <canvas id = "canvas-main" width = "1024" height = "1024" style = "width: 40%; height: 40%"></canvas>
+
+    <script>
+      let MyGame = {
+        screens: {},
+        input: {},
+        objects: {},
+        render: [],
+      };
+    </script>
+    <script src="./script/gameVars.js"></script>
+    <script src="./script/createMaze.js"></script>
+    <script src="./script/images.js"></script>
+    <script src="./script/gameVars.js"></script>
+    <script src="./script/gameFunc.js"></script>
+    <script src="./script/render.js"></script>
+    <script src="./script/gameLoop.js"></script>
+    <script src="./script/initialize.js"></script>
+
 </body>
 </html>
