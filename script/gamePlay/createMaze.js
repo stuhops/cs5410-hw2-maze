@@ -94,13 +94,10 @@ let primsMaze = (maze, startX, startY) => {
   return maze;
 }
 
-let maze = createBlankMaze(ROW, COL);
 
-maze = primsMaze(maze);
+let createMaze = (row, col) => {
+  let maze = createBlankMaze(row, col);
 
-// let createMaze = (row, col) => {
-//   let maze = createBlankMaze(row, col);
-
-//   maze = primsMaze(maze);
-//   return maze;
-// }
+  maze = primsMaze(maze);
+  return maze;
+}

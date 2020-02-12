@@ -28,6 +28,7 @@ function gameLoop() {
     processInput();
     render();
 
-    requestAnimationFrame(gameLoop);
 
+    if(document.getElementById(route).classList.contains('active'))
+      requestAnimationFrame(gameLoop);
 }

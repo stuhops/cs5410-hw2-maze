@@ -24,3 +24,12 @@ function moveCharacter(key, character) {
         }
     }
 }
+
+
+function playMaze(row, col) {
+    ROW = row;
+    COL = col;
+
+    initialize();
+    navigate('game-play');
+}

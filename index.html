@@ -2,27 +2,55 @@
 <html>
 <head>
   <title>Game Loop</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="./static/css/style.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body class="bg-dark" onload="initialize()">
+<body>
 
-    <div id="game">
-      <div id="game-play">
-        <canvas id="canvas-main" width="1024" height="1024"></canvas>
-      </div>
+  <div id="game">
+
+    <div id="game-play" class="screen">
+      <canvas id="canvas-main" width="1024" height="1024"></canvas>
     </div>
 
-    <script src="./script/gamePlay/gameVars.js"></script>
-    <script src="./script/gamePlay/createMaze.js"></script>
-    <script src="./script/gamePlay/images.js"></script>
-    <script src="./script/gamePlay/gameVars.js"></script>
-    <script src="./script/gamePlay/gameFunc.js"></script>
-    <script src="./script/gamePlay/render.js"></script>
-    <script src="./script/gamePlay/gameLoop.js"></script>
-    <script src="./script/gamePlay/initialize.js"></script>
+    <div id="main-menu" class="screen">
+      <ul>
+        <li><button onClick="navigate('maze-selector');">New Game</button></li>
+        <li><button>High Scores</button></li>
+        <li><button>Help</button></li>
+        <li><button>About</button></li>
+      </ul>
+    </div>
+
+    <div id="maze-selector" class="screen">
+      <ul>
+        <li><button onClick="playMaze(3, 3);">3x3</button></li>
+        <li><button onClick="playMaze(9, 9);">9x9</button></li>
+        <li><button onClick="playMaze(15, 15);">15x15</button></li>
+        <li><button onClick="playMaze(21, 21);">21x21</button></li>
+      </ul>
+    </div>
+
+    <div id="high-scores" class="screen">
+    </div>
+
+    <div id="help" class="screen">
+    </div>
+
+    <div id="about" class="screen">
+    </div>
+
+
+  </div>
+
+  <script src="./script/gamePlay/gameVars.js"></script>
+  <script src="./script/gamePlay/createMaze.js"></script>
+  <script src="./script/gamePlay/images.js"></script>
+  <script src="./script/gamePlay/gameVars.js"></script>
+  <script src="./script/gamePlay/gameFunc.js"></script>
+  <script src="./script/gamePlay/render.js"></script>
+  <script src="./script/gamePlay/gameLoop.js"></script>
+  <script src="./script/gamePlay/initialize.js"></script>
+  <script src="./script/navMenu.js"></script>
 
 </body>
 </html>

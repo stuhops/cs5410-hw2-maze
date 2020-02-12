@@ -11,19 +11,26 @@ function loadImagePos(imageSource, location) {
     };
 }
 
+function loadImages() {
+    imgFloor.onload = function() {
+        this.isReady = true;
+    };
+    imgBreadcrumb.onload = function() {
+        this.isReady = true;
+    };
+    myCharacter.onload = function() {
+        this.isReady = true;
+    };
+    finishImg.onload = function() {
+        this.isReady = true;
+    };
 
-let imgFloor = new Image();
-let imgBreadcrumb = new Image();
-imgFloor.isReady = false;
-imgBreadcrumb.isReady = false;
-imgFloor.onload = function() {
-    this.isReady = true;
-};
-imgBreadcrumb.onload = function() {
-    this.isReady = true;
-};
-imgFloor.src = 'static/images/floor.png';
-imgBreadcrumb.src = 'static/images/breadcrumb.png';
+    imgFloor.src = 'static/images/floor.png';
+    imgBreadcrumb.src = 'static/images/breadcrumb.png';
+    myCharacter.src = './static/images/character.png';
+    finishImg.src = './static/images/finish.png';
 
-let myCharacter = loadImagePos('./static/images/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
-let finishImg = loadImagePos('./static/images/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+    myCharacter = loadImagePos('./static/images/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+    finishImg = loadImagePos('./static/images/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+}
+
