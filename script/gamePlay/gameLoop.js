@@ -1,16 +1,3 @@
-function render() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-
-    renderMaze(ROW, COL);
-    renderCharacter(finishImg);
-    renderCharacter(myCharacter);
-
-    while(breadcrumbList.length) {
-      renderCharacter(breadcrumbList.pop());
-    }
-}
-
-
 function processInput() {
     for (input in inputBuffer) {
 
@@ -24,11 +11,60 @@ function processInput() {
 }
 
 
-function gameLoop() {
-    processInput();
-    render();
+function update(elapsedTime) {
+  for(let i = 0; i < updateList.length; i++) {
+    updateList[i].time -= elapsedTime;
+    if (updateList[i].time <= 0) {
+      updateList[i].iterations--;
+      updateList[i].time += Number(updateList[i].interval);
+
+      updateList[i].val += updateList[i].change;
+
+      if(updateList[i].val >= 0) {
+        toRender.push({
+          name: updateList[i].name, 
+          val: updateList[i].val,
+        });
+      }
+      else {
+        toRender.push({
+          name: updateList[i].name, 
+          val: 0,
+        });
+      }
+    }
+  }
+}
 
 
-    if(document.getElementById(route).classList.contains('active'))
-      requestAnimationFrame(gameLoop);
+function render() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    renderMaze(ROW, COL);
+    renderCharacter(finishImg);
+    renderCharacter(myCharacter);
+
+    while(toRender.length) {
+      rend = toRender.pop();
+      document.getElementById(rend.name).innerHTML = rend.val;
+    }
+
+    while(breadcrumbList.length) {
+      renderCharacter(breadcrumbList.pop());
+    }
+}
+
+
+function gameLoop(time) {
+  let elapsedTime = time - lastTime;
+
+  processInput();
+  update(elapsedTime);
+  render();
+
+
+  if(document.getElementById('game-play').classList.contains('active')) {
+    lastTime = time;
+    requestAnimationFrame(gameLoop);
+  }
 }

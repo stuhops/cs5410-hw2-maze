@@ -11,6 +11,11 @@ let COL = 9;
 
 let maze = [[]];
 
+let lastTime = performance.now();
+
+let updateList = [];
+let toRender = [];
+
 let showBreadcrumbs = false;
 let breadcrumbList = [];
 

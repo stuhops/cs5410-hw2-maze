@@ -15,22 +15,6 @@
 
   <div id="game">
 
-    <div id="game-play" class="screen">
-      <div class="d-flex justify-content-around bg-secondary">
-        <div class="p-2">Your Score: 
-          <span id="my-score">0</span>
-        </div>
-        <div class="p-2">High Score: 
-          <span id="high-score">0</span>
-        </div>
-        <div class="p-2">Time: 
-          <span id="timer">0</span>
-        </div>
-      </div>
-      <canvas id="canvas-main" width="1024" height="1024"></canvas>
-      <button class="btn w-100 btn-secondary" onClick="navigate('main-menu');">Main Menu</button>"
-    </div>
-
     <div id="main-menu" class="screen">
       <div class="d-flex justify-content-center">
         <div class="w-50 d-flex flex-column pt-5">
@@ -63,6 +47,46 @@
     <div id="about" class="screen">
     </div>
 
+    <div id="game-play" class="screen">
+      <div class="d-flex justify-content-around bg-secondary">
+        <div class="p-2">Your Score: 
+          <span id="my-score"></span>
+        </div>
+        <div class="p-2">High Score: 
+          <span id="high-score"></span>
+        </div>
+        <div class="p-2">Time: 
+          <span id="timer"></span>
+        </div>
+      </div>
+      <canvas id="canvas-main" width="1024" height="1024"></canvas>
+      <button class="btn w-100 btn-secondary" onClick="navigate('main-menu');">Main Menu</button>"
+    </div>
+
+    <div id="game-over" class="screen">
+      <div class="d-flex justify-content-around bg-secondary">
+        <div class="p-2">Your Score: 
+          <span id="my-prev-score"></span>
+        </div>
+        <div class="p-2">High Score: 
+          <span id="high-score"></span>
+        </div>
+        <div class="p-2">Time: 
+          <span id="prev-timer"></span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <div class="w-50 d-flex flex-column pt-5">
+          <div class="btn btn-lg btn-primary mt-5">High Score 1</div>
+          <div class="btn btn-lg btn-primary mt-4">High Score 2</div>
+          <div class="btn btn-lg btn-primary mt-4">High score 3</div>
+          <div class="btn btn-lg btn-primary mt-4">High score 4</div>
+        </div>
+      </div>
+
+      <button class="btn w-100 btn-secondary" onClick="navigate('main-menu');">Main Menu</button>"
+    </div>
 
   </div>
 
