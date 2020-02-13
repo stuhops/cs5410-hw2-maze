@@ -25,12 +25,12 @@ function loadImages() {
         this.isReady = true;
     };
 
-    imgFloor.src = 'static/images/floor.png';
-    imgBreadcrumb.src = 'static/images/breadcrumb.png';
-    myCharacter.src = './static/images/character.png';
-    finishImg.src = './static/images/finish.png';
+    imgFloor.src = './assets/floor.png';
+    imgBreadcrumb.src = './assets/breadcrumb.png';
+    myCharacter.src = './assets/character.png';
+    finishImg.src = './assets/finish.png';
 
-    myCharacter = loadImagePos('./static/images/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
-    finishImg = loadImagePos('./static/images/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+    myCharacter = loadImagePos('./assets/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
+    finishImg = loadImagePos('./assets/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
 }
 
