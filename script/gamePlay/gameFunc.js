@@ -37,14 +37,36 @@ function moveCharActions(character) {
 
 
 function gameOver() {
-    console.log(document.getElementById('timer').innerHTML);
+    manageHighScores(Number(document.getElementById('my-score').innerHTML));
+
     document.getElementById('my-prev-score').innerHTML = document.getElementById('my-score').innerHTML;
     document.getElementById('prev-timer').innerHTML = document.getElementById('timer').innerHTML;
 
     document.getElementById('my-score').innerHTML = '1000';
     document.getElementById('timer').innerHTML = '0';
 
+    manageHighScores(Number(document.getElementById('my-score').innerHTML));
+
     navigate('game-over');
+}
+
+
+function manageHighScores(newScore) {
+  if(newScore && newScore < 1000) {
+    for(let i = 0; i < highScores.length; i++) {
+      if(highScores[i] === 'Unclaimed' || newScore > highScores[i]) {
+        highScores.splice(i, 0, newScore);
+        highScores.pop();
+        window.localStorage.setItem('maze-high-scores', JSON.stringify(highScores));
+        break;
+      }
+    }
+  }
+  for(let i = 0; i < highScores.length; i++) {
+    for(let j = 0; j < document.getElementsByName(`high-score-${i+1}`).length; j++) {
+        document.getElementsByName(`high-score-${i+1}`)[j].innerHTML = highScores[i];
+    }
+  }
 }
 
 

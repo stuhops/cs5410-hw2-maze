@@ -6,7 +6,7 @@ function initialize() {
             'change': -1,
             'interval': 1000,
             'iterations': 20000,
-            'time': 1000,
+            'time': 0,
         },
         {
             'name': 'timer',
@@ -14,10 +14,14 @@ function initialize() {
             'change': 1,
             'interval': 1000,
             'iterations': 10000,
-            'time': 1000,
+            'time': 0,
         },
     ];
     toRender = [];
+
+    for(let i = 0; i < document.getElementsByName('high-score').length; i++) {
+        document.getElementsByName(`high-score`)[i].innerHTML = highScores[0];
+    }
 
     canvas = document.getElementById('canvas-main');
     context = canvas.getContext('2d');

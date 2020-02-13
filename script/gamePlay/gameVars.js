@@ -24,6 +24,10 @@ let imgBreadcrumb = new Image();
 let myCharacter = new Image();
 let finishImg = new Image();
 
+let highScores = ['Unclaimed', 'Unclaimed', 'Unclaimed', 'Unclaimed'];
+if(JSON.parse(window.localStorage.getItem('maze-high-scores')) !== null)
+  highScores = JSON.parse(window.localStorage.getItem('maze-high-scores'))
+
 imgFloor.isReady = false;
 imgBreadcrumb.isReady = false;
 myCharacter.image.isReady = false;
