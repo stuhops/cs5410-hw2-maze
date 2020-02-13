@@ -16,6 +16,7 @@
   <div id="game">
 
     <div id="main-menu" class="screen">
+      <h1 class="display-2 text-center text-white pt-5">Main Menu</h1>
       <div class="d-flex justify-content-center">
         <div class="w-50 d-flex flex-column pt-5">
           <button class="btn btn-lg btn-primary mt-5" onClick="navigate('maze-selector');">New Game</button>
@@ -39,12 +40,28 @@
     </div>
 
     <div id="high-scores" class="screen">
+      <h1 class="display-2 text-center text-white pt-5">High Scores</h1>
+
+      <div class="d-flex justify-content-center">
+        <div class="w-50 d-flex flex-column pt-5">
+          <div key="high-score-1" class="btn btn-lg btn-success mt-5">Unclaimed</div>
+          <div key="high-score-2" class="btn btn-lg btn-primary mt-4">Unclaimed</div>
+          <div key="high-score-3" class="btn btn-lg btn-warning mt-4">Unclaimed</div>
+          <div key="high-score-4" class="btn btn-lg btn-danger mt-4 mb-5">Unclaimed</div>
+        </div>
+      </div>
+
+      <button class="btn w-100 btn-secondary mt-5" onClick="navigate('main-menu');">Main Menu</button>"
     </div>
 
     <div id="help" class="screen">
+      <h1 class="display-2 text-center text-white pt-5">Help</h1>
+      <button class="btn w-100 btn-secondary mt-5" onClick="navigate('main-menu');">Main Menu</button>"
     </div>
 
     <div id="about" class="screen">
+      <h1 class="display-2 text-center text-white pt-5">About</h1>
+      <button class="btn w-100 btn-secondary mt-5" onClick="navigate('main-menu');">Main Menu</button>"
     </div>
 
     <div id="game-play" class="screen">
@@ -76,16 +93,18 @@
         </div>
       </div>
 
+      <h1 class="display-2 text-center text-white pt-5">High Scores</h1>
+
       <div class="d-flex justify-content-center">
         <div class="w-50 d-flex flex-column pt-5">
-          <div class="btn btn-lg btn-primary mt-5">High Score 1</div>
-          <div class="btn btn-lg btn-primary mt-4">High Score 2</div>
-          <div class="btn btn-lg btn-primary mt-4">High score 3</div>
-          <div class="btn btn-lg btn-primary mt-4">High score 4</div>
+          <div key="high-score-1" class="btn btn-lg btn-success mt-5">Unclaimed</div>
+          <div key="high-score-2" class="btn btn-lg btn-primary mt-4">Unclaimed</div>
+          <div key="high-score-3" class="btn btn-lg btn-warning mt-4">Unclaimed</div>
+          <div key="high-score-4" class="btn btn-lg btn-danger mt-4 mb-5">Unclaimed</div>
         </div>
       </div>
 
-      <button class="btn w-100 btn-secondary" onClick="navigate('main-menu');">Main Menu</button>"
+      <button class="btn w-100 btn-secondary mt-5" onClick="navigate('main-menu');">Main Menu</button>"
     </div>
 
   </div>
