@@ -2,32 +2,56 @@
 <html>
 <head>
   <title>Game Loop</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
   <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
+<body class="bg-dark">
 
   <div id="game">
 
     <div id="game-play" class="screen">
+      <div class="d-flex justify-content-around bg-secondary">
+        <div class="p-2">Your Score: 
+          <span id="my-score">0</span>
+        </div>
+        <div class="p-2">High Score: 
+          <span id="high-score">0</span>
+        </div>
+        <div class="p-2">Time: 
+          <span id="timer">0</span>
+        </div>
+      </div>
       <canvas id="canvas-main" width="1024" height="1024"></canvas>
+      <button class="btn w-100 btn-secondary" onClick="navigate('main-menu');">Main Menu</button>"
     </div>
 
     <div id="main-menu" class="screen">
-      <ul>
-        <li><button onClick="navigate('maze-selector');">New Game</button></li>
-        <li><button>High Scores</button></li>
-        <li><button>Help</button></li>
-        <li><button>About</button></li>
-      </ul>
+      <div class="d-flex justify-content-center">
+        <div class="w-50 d-flex flex-column pt-5">
+          <button class="btn btn-lg btn-primary mt-5" onClick="navigate('maze-selector');">New Game</button>
+          <button class="btn btn-lg btn-primary mt-4" onClick="navigate('high-scores');">High Scores</button>
+          <button class="btn btn-lg btn-primary mt-4" onClick="navigate('help');">Help</button>
+          <button class="btn btn-lg btn-primary mt-4" onClick="navigate('about');">About</button>
+        </div>
+      </div>
     </div>
 
     <div id="maze-selector" class="screen">
-      <ul>
-        <li><button onClick="playMaze(3, 3);">3x3</button></li>
-        <li><button onClick="playMaze(9, 9);">9x9</button></li>
-        <li><button onClick="playMaze(15, 15);">15x15</button></li>
-        <li><button onClick="playMaze(21, 21);">21x21</button></li>
-      </ul>
+      <div class="d-flex justify-content-center">
+        <div class="w-50 d-flex flex-column pt-5">
+          <button class="btn btn-lg btn-success mt-4" onClick="playMaze(3, 3);">3x3</button>
+          <button class="btn btn-lg btn-primary mt-4" onClick="playMaze(9, 9);">9x9</button>
+          <button class="btn btn-lg btn-warning mt-4" onClick="playMaze(15, 15);">15x15</button>
+          <button class="btn btn-lg btn-danger mt-4" onClick="playMaze(21, 21);">21x21</button>
+          <button class="btn btn-lg btn-secondary mt-4" onClick="navigate('main-menu');">Back to Main Menu</button>
+        </div>
+      </div>
     </div>
 
     <div id="high-scores" class="screen">
