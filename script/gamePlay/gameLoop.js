@@ -3,12 +3,18 @@ function processInput() {
 
     moveCharacter(inputBuffer[input], myCharacter);
 
-    if (inputBuffer[input] === 'b')
+    if (inputBuffer[input] === 'b') {
+      updateList[0].val -= 25;
       showBreadcrumbs = !showBreadcrumbs;
-    if (inputBuffer[input] === 'p')
+    }
+    if (inputBuffer[input] === 'p') {
+      updateList[0].val = 0;
       displayShortestPath = !displayShortestPath;
-    if (inputBuffer[input] === 'h')
-      showHint = !displayShortestPath;
+    }
+    if (inputBuffer[input] === 'h') {
+      updateList[0].val -= 50;
+      showHint = !showHint;
+    }
   }
   inputBuffer = {};
 }

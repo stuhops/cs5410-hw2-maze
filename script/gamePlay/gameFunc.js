@@ -88,11 +88,12 @@ function showShortestPathRec(cell, recursive) {
                       COORD_SIZE / (COL*2) + 0.5
                      );
   }
+  // renderCharacter( loadImagePos(pathImg.src, cell) );
 
   if(recursive === false)
     return;
 
-  showShortestPathRec(cell.next, recursive);
+  showShortestPathRec(cell.shortestPath.next, recursive);
 }
 
 
