@@ -1,23 +1,23 @@
 function moveCharacter(key, character) {
-    if (key === 'ArrowDown') {
+    if (key === 'ArrowDown' || key === 's' || key === 'k') {
         if (character.location.edges.s) {
             character.location = character.location.edges.s;
             moveCharActions(character);
         }
     }
-    if (key == 'ArrowUp') {
+    if (key == 'ArrowUp' || key === 'w' || key === 'i') {
         if (character.location.edges.n) {
             character.location = character.location.edges.n;
             moveCharActions(character);
         }
     }
-    if (key == 'ArrowRight') {
+    if (key == 'ArrowRight' || key === 'd' || key === 'l') {
         if (character.location.edges.e) {
             character.location = character.location.edges.e;
             moveCharActions(character);
         }
     }
-    if (key == 'ArrowLeft') {
+    if (key == 'ArrowLeft' || key === 'a' || key === 'j') {
         if (character.location.edges.w) {
             character.location = character.location.edges.w;
             moveCharActions(character);
