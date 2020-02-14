@@ -70,6 +70,32 @@ function manageHighScores(newScore) {
 }
 
 
+function showShortestPath(startCell, recursive) {
+  // We don't want to show on the cell they are on
+  showShortestPathRec(startCell.shortestPath.next, recursive);
+}
+
+
+function showShortestPathRec(cell, recursive) {
+  if(cell.shortestPath.distance === 0) 
+    return;
+
+  if(pathImg.isReady) {
+    context.drawImage(pathImg,
+                      cell.x * (COORD_SIZE / ROW) + .25 * (COORD_SIZE / ROW),
+                      cell.y * (COORD_SIZE / COL) + .25 * (COORD_SIZE / COL),
+                      COORD_SIZE / (ROW*2) + 0.5,
+                      COORD_SIZE / (COL*2) + 0.5
+                     );
+  }
+
+  if(recursive === false)
+    return;
+
+  showShortestPathRec(cell.next, recursive);
+}
+
+
 function playMaze(row, col) {
     ROW = row;
     COL = col;

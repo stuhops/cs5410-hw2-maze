@@ -17,12 +17,15 @@ let updateList = [];
 let toRender = [];
 
 let showBreadcrumbs = false;
+let displayShortestPath = false;
+let showHint = false;
 let breadcrumbList = [];
 
 let imgFloor = new Image();
 let imgBreadcrumb = new Image();
 let myCharacter = new Image();
 let finishImg = new Image();
+let pathImg = new Image();
 
 let highScores = ['Unclaimed', 'Unclaimed', 'Unclaimed', 'Unclaimed'];
 if(JSON.parse(window.localStorage.getItem('maze-high-scores')) !== null)
@@ -30,5 +33,6 @@ if(JSON.parse(window.localStorage.getItem('maze-high-scores')) !== null)
 
 imgFloor.isReady = false;
 imgBreadcrumb.isReady = false;
-myCharacter.image.isReady = false;
+myCharacter.isReady = false;
 finishImg.isReady = false;
+pathImg.isReady = false;

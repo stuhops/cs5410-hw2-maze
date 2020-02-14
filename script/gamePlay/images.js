@@ -24,11 +24,15 @@ function loadImages() {
     finishImg.onload = function() {
         this.isReady = true;
     };
+    pathImg.onload = function() {
+        this.isReady = true;
+    };
 
     imgFloor.src = './assets/floor.png';
     imgBreadcrumb.src = './assets/breadcrumb.png';
     myCharacter.src = './assets/character.png';
     finishImg.src = './assets/finish.png';
+    pathImg.src = './assets/shortestPath.png';
 
     myCharacter = loadImagePos('./assets/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
     finishImg = loadImagePos('./assets/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);

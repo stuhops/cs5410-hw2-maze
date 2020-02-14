@@ -28,6 +28,7 @@ function initialize() {
 
     maze = createMaze(ROW, COL);
     loadImages();
+    shortestPathEntry();
 
     window.addEventListener('keydown', function(event) {
         inputBuffer[event.key] = event.key;

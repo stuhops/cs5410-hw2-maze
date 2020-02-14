@@ -34,6 +34,7 @@ function drawCell(cell) {
                       COORD_SIZE / (COL*2) + 0.5
                      );
   }
+
 }
 
 

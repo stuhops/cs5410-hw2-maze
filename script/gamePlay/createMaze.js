@@ -15,6 +15,10 @@ createBlankMaze = (row, col) => {
         used: 0,
         breadcrumb: false,
         adj: [],
+        shortestPath: {
+          distance: -1,
+          next: null,
+        }
       });
     }
   }
@@ -92,6 +96,51 @@ let primsMaze = (maze, startX, startY) => {
   }
 
   return maze;
+}
+
+function shortestPathEntry() {
+  curr = finishImg.location;
+  curr.shortestPath.distance = 0;
+
+  if (curr.edges.n) {
+    shortestPathRec(curr, curr.edges.n)
+  }
+  if (curr.edges.s) {
+    shortestPathRec(curr, curr.edges.s)
+  }
+  if (curr.edges.e) {
+    shortestPathRec(curr, curr.edges.e)
+  }
+  if (curr.edges.w) {
+    shortestPathRec(curr, curr.edges.w)
+  }
+}
+
+
+function shortestPathRec(from, curr) {
+  // Do shortest path on the current
+  if(curr.shortestPath.distance == -1 || curr.shortestPath.distance > from.shortestPath.distance) {
+    curr.shortestPath.distance = 1 + from.shortestPath.distance;
+    curr.shortestPath.next = from;
+  }
+  else {
+    return;
+  }
+
+  // Do shortest path on the children
+  if (curr.edges.n) {
+    shortestPathRec(curr, curr.edges.n)
+  }
+  if (curr.edges.s) {
+    shortestPathRec(curr, curr.edges.s)
+  }
+  if (curr.edges.e) {
+    shortestPathRec(curr, curr.edges.e)
+  }
+  if (curr.edges.w) {
+    shortestPathRec(curr, curr.edges.w)
+  }
+
 }
 
 

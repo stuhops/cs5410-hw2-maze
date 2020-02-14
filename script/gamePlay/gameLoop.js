@@ -1,13 +1,16 @@
 function processInput() {
-    for (input in inputBuffer) {
+  for (input in inputBuffer) {
 
-        moveCharacter(inputBuffer[input], myCharacter);
+    moveCharacter(inputBuffer[input], myCharacter);
 
-        if (inputBuffer[input] === 'b') {
-          showBreadcrumbs = !showBreadcrumbs;
-        }
-    }
-    inputBuffer = {};
+    if (inputBuffer[input] === 'b')
+      showBreadcrumbs = !showBreadcrumbs;
+    if (inputBuffer[input] === 'p')
+      displayShortestPath = !displayShortestPath;
+    if (inputBuffer[input] === 'h')
+      showHint = !displayShortestPath;
+  }
+  inputBuffer = {};
 }
 
 
@@ -43,6 +46,12 @@ function render() {
     renderMaze(ROW, COL);
     renderCharacter(finishImg);
     renderCharacter(myCharacter);
+
+    if(showHint)
+      showShortestPath(myCharacter.location, false);
+
+    if(displayShortestPath)
+      showShortestPath(myCharacter.location, true);
 
     while(toRender.length) {
       rend = toRender.pop();
