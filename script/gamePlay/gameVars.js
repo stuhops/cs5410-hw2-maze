@@ -21,6 +21,8 @@ let displayShortestPath = false;
 let showHint = false;
 let breadcrumbList = [];
 
+let startCell = [];
+
 let imgFloor = new Image();
 let imgBreadcrumb = new Image();
 let myCharacter = new Image();

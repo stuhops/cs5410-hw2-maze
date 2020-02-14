@@ -34,7 +34,6 @@ function loadImages() {
     finishImg.src = './assets/finish.png';
     pathImg.src = './assets/shortestPath.png';
 
-    myCharacter = loadImagePos('./assets/character.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
     finishImg = loadImagePos('./assets/finish.png', maze[Math.floor(Math.random() * ROW)][Math.floor(Math.random() * COL)]);
 }
 

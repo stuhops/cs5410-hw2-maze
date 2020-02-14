@@ -101,6 +101,7 @@ let primsMaze = (maze, startX, startY) => {
 function shortestPathEntry() {
   curr = finishImg.location;
   curr.shortestPath.distance = 0;
+  startCell = curr;
 
   if (curr.edges.n) {
     shortestPathRec(curr, curr.edges.n)
@@ -140,6 +141,9 @@ function shortestPathRec(from, curr) {
   if (curr.edges.w) {
     shortestPathRec(curr, curr.edges.w)
   }
+
+  if (curr.shortestPath.distance > startCell.shortestPath.distance)
+    startCell = curr;
 
 }
 

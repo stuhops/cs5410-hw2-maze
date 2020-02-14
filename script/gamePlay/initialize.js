@@ -19,6 +19,10 @@ function initialize() {
     ];
     toRender = [];
 
+    showBreadcrumbs = false;
+    showHint = false;
+    displayShortestPath = false;
+
     for(let i = 0; i < document.getElementsByName('high-score').length; i++) {
         document.getElementsByName(`high-score`)[i].innerHTML = highScores[0];
     }
@@ -29,6 +33,8 @@ function initialize() {
     maze = createMaze(ROW, COL);
     loadImages();
     shortestPathEntry();
+
+    myCharacter = loadImagePos('./assets/character.png', startCell);
 
     window.addEventListener('keydown', function(event) {
         inputBuffer[event.key] = event.key;
